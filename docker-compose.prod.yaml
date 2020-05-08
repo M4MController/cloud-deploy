@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    database:
+        build:
+            context: https://github.com/M4MController/cloud-web.git
+            dockerfile: Dockerfile-db
+        environment:
+            POSTGRES_USER: "m4m"
+            POSTGRES_PASSWORD: "12345"
+            POSTGRES_DB: "m4m"
+        restart: always
+    backend:
+        build:
+            context: https://github.com/M4MController/cloud-web.git
+            dockerfile: Dockerfile
+        depends_on:
+            - database
+        restart: always
+    frontend:
+        build:
+            context: https://github.com/M4MController/frontend.git
+            dockerfile: Dockerfile
+            args:
+                MODE: default
+                GOOGLE_API_MAPS_KEY: google_api_maps_key
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - backend
+        restart: always
