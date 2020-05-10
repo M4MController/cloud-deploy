@@ -23,10 +23,16 @@ services:
             dockerfile: Dockerfile
             args:
                 MODE: default
-                GOOGLE_API_MAPS_KEY: google_api_maps_key
         ports:
             - 80:80
             - 443:443
         depends_on:
             - backend
         restart: always
+    sync:
+        build:
+            context: https://github.com/M4MController/cloud-web.git
+            dockerfile: sync/Dockerfile
+        restart: always
+        depends_on:
+            - database
