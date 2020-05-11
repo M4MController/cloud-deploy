@@ -28,6 +28,12 @@ services:
             - 443:443
         depends_on:
             - backend
+            - frontend-admin
+        restart: always
+    frontend-admin:
+        build:
+            context: https://github.com/M4MController/frontend-admin.git
+            dockerfile: Dockerfile
         restart: always
     sync:
         build:
