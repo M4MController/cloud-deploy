@@ -2,27 +2,19 @@ version: '3'
 
 services:
     database:
-        build:
-            context: https://github.com/M4MController/cloud-web.git
-            dockerfile: Dockerfile-db
+        image: registry.meter4.me:25410/cloud-database
         environment:
             POSTGRES_USER: "m4m"
             POSTGRES_PASSWORD: "12345"
             POSTGRES_DB: "m4m"
         restart: always
     backend:
-        build:
-            context: https://github.com/M4MController/cloud-web.git
-            dockerfile: Dockerfile
+        image: registry.meter4.me:25410/cloud-backend
         depends_on:
             - database
         restart: always
     frontend:
-        build:
-            context: https://github.com/M4MController/frontend.git
-            dockerfile: Dockerfile
-            args:
-                MODE: default
+        image: registry.meter4.me:25410/cloud-frontend
         ports:
             - 80:80
             - 443:443
@@ -31,14 +23,10 @@ services:
             - frontend-admin
         restart: always
     frontend-admin:
-        build:
-            context: https://github.com/M4MController/frontend-admin.git
-            dockerfile: Dockerfile
+        image: registry.meter4.me:25410/cloud-frontend-admin
         restart: always
     sync:
-        build:
-            context: https://github.com/M4MController/cloud-web.git
-            dockerfile: sync/Dockerfile
+        image: registry.meter4.me:25410/cloud-sync
         restart: always
         depends_on:
             - database
