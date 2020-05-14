@@ -22,6 +22,9 @@ services:
             - backend
             - frontend-admin
         restart: always
+        volumes:
+            - /etc/ssl/meter4.me/cert.pem:/etc/ssl/cert.pem
+            - /etc/ssl/meter4.me/privkey.pem:/etc/ssl/privkey.pem
     frontend-admin:
         image: registry.meter4.me:25410/cloud-frontend-admin
         restart: always
