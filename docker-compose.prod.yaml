@@ -22,6 +22,8 @@ services:
             - backend
             - frontend-admin
         restart: always
+        volumes:
+            - /etc/letsencrypt/live/m4mcloud.ru:/etc/ssl
     frontend-admin:
         image: registry.meter4.me:25410/cloud-frontend-admin
         restart: always
